@@ -37,8 +37,19 @@ static InitChainEntry D_80A3E74C[] = {
 #endif
 
 extern InitChainEntry D_80A3E74C[];
+/* InitChainEntry D_80A3E74C[4];                       /1* unable to generate initializer *1/ */
 
-#pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Test2/EnTest2_Init.s")
+/* #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Test2/EnTest2_Init.s") */
+void EnTest2_Init(Actor* thisx, GlobalContext* globalCtx) {
+    s16 temp_v0;
+    EnTest2* this = (EnTest2*)thisx;
+
+    Actor_ProcessInitChain(&this->actor, D_80A3E74C);
+    temp_v0 = this->actor.params;
+    if ((temp_v0 == 0xB) || (temp_v0 == 0xC)) {
+        this->actor.flags |= 0x20;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/non_matchings/overlays/ovl_En_Test2/EnTest2_Update.s")
 
